@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: projectmanager-api
+    env: docker
+    plan: free
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    dockerCommand: dotnet ProjectManager.Api.dll --urls http://0.0.0.0:$PORT
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: FrontendOrigin
+        value: https://your-frontend.vercel.app
+      - key: Jwt__Key
+        generateValue: true
+      - key: ConnectionStrings__DefaultConnection
+        value: Data Source=/data/app.db
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
