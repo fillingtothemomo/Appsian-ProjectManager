@@ -273,6 +273,24 @@ export default function ProjectDetails() {
   const completedTasks = useMemo(() => project?.tasks.filter((t) => t.isCompleted).length ?? 0, [project?.tasks]);
   const createdOn = useMemo(() => (project ? new Date(project.createdAt) : null), [project?.createdAt, project]);
 
+  // formatting helpers for cleaner schedule UI
+  const formatDay = (iso?: string | null) => {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" });
+  };
+
+  const formatDateTime = (iso: string) => {
+    const d = new Date(iso);
+    return d.toLocaleString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  };
+
   if (loading) {
     return <div className="card">Loading project...</div>;
   }
@@ -520,19 +538,23 @@ export default function ProjectDetails() {
               </ol>
               <div className="timeline-list">
                 {scheduleInfo.timeline.map((item) => (
-                  <div key={`${item.title}-${item.startOn}`} className="timeline-item">
+                  <article key={`${item.title}-${item.startOn}`} className="timeline-item">
                     <div className="timeline-time">
-                      <span>{new Date(item.startOn).toLocaleString()}</span>
+                      <span>{formatDateTime(item.startOn)}</span>
                       <span className="timeline-arrow">→</span>
-                      <span>{new Date(item.finishOn).toLocaleString()}</span>
+                      <span>{formatDateTime(item.finishOn)}</span>
                     </div>
                     <div className="timeline-body">
-                      <h4>{item.title}</h4>
-                      <p>Estimated {item.estimatedHours}h</p>
-                      {item.dueDate && <p>Due by {new Date(item.dueDate).toLocaleDateString()}</p>}
-                      {item.dependencies.length > 0 && <p>After: {item.dependencies.join(", ")}</p>}
+                      <h4 className="timeline-title">{item.title}</h4>
+                      <p className="timeline-meta">
+                        Est. {item.estimatedHours}h
+                        {item.dueDate ? <> • Due {formatDay(item.dueDate)}</> : null}
+                        {item.dependencies.length > 0 ? (
+                          <> • After: {item.dependencies.join(", ")}</>
+                        ) : null}
+                      </p>
                     </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>
