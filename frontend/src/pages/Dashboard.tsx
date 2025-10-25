@@ -79,21 +79,6 @@ export default function Dashboard() {
   };
 
   const totalProjects = projects.length;
-  const describeWorkspaceEnergy = (count: number) => {
-    if (count === 0) return { label: "Fresh start", hint: "Spin up a project to unlock the planner." };
-    if (count === 1) return { label: "Momentum building", hint: "Add tasks and dependencies to stay on track." };
-    if (count <= 3) return { label: "Finding flow", hint: "Use Smart Scheduling to balance workloads." };
-    return { label: "Full sprint", hint: "Review timelines to keep everyone aligned." };
-  };
-  const energy = useMemo(() => describeWorkspaceEnergy(totalProjects), [totalProjects]);
-
-  const suggestNextAction = (count: number) => {
-    if (count === 0) return { label: "Create a project", hint: "It only takes a name and a quick intention." };
-    if (count === 1) return { label: "Add tasks", hint: "Capture priorities then run the planner." };
-    return { label: "Review timelines", hint: "Tweak dependencies before your next run." };
-  };
-  const nextAction = useMemo(() => suggestNextAction(totalProjects), [totalProjects]);
-
   const firstName = useMemo(() => {
     const trimmed = profileName.trim();
     if (!trimmed) return "";
@@ -126,16 +111,6 @@ export default function Dashboard() {
             <span className="workspace-metric__label">Total projects</span>
             <span className="workspace-metric__value">{totalProjects}</span>
             <span className="workspace-metric__hint">Active across the workspace</span>
-          </div>
-          <div className="workspace-metric workspace-metric--glow">
-            <span className="workspace-metric__label">Workspace energy</span>
-            <span className="workspace-metric__value">{energy.label}</span>
-            <span className="workspace-metric__hint">{energy.hint}</span>
-          </div>
-          <div className="workspace-metric workspace-metric--outline">
-            <span className="workspace-metric__label">Next action</span>
-            <span className="workspace-metric__value">{nextAction.label}</span>
-            <span className="workspace-metric__hint">{nextAction.hint}</span>
           </div>
         </div>
       </header>

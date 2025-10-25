@@ -68,14 +68,10 @@ export default function Register() {
         </p>
       </section>
 
-      <aside className="auth-aside auth-aside--register">
+      <aside className="auth-aside">
         <div className="auth-aside__content">
-          <h2>Shape your plan, simply.</h2>
-          <p>Bring tasks, timelines, and handoffs into one calm space for your team.</p>
-          <ul className="auth-points">
-            <li>Group projects with clear visual cues.</li>
-            <li>Estimate with just enough structure.</li>
-          </ul>
+          <h2>Appsian Tech Project Management Assignment</h2>
+          <p>Made by Angel Sharma , 22323005</p>
         </div>
       </aside>
     </div>

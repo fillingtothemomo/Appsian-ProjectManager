@@ -66,12 +66,8 @@ export default function Login() {
 
       <aside className="auth-aside">
         <div className="auth-aside__content">
-          <h2>Plan it. Ship it.</h2>
-          <p>Keep priorities clear, unblock teammates quickly, and track progress without spreadsheets.</p>
-          <ul className="auth-points">
-            <li>Capture tasks and timelines in one place.</li>
-            <li>Balance work with lightweight scheduling.</li>
-          </ul>
+          <h2>Appsian Tech Project Management Assignment</h2>
+          <p>Made by Angel Sharma , 22323005</p>
         </div>
       </aside>
     </div>
