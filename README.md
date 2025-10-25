@@ -27,6 +27,10 @@ video: https://github.com/user-attachments/assets/b8881c8e-3fe5-401f-ac02-758331
 <img width="1877" height="914" alt="image" src="https://github.com/user-attachments/assets/8cb0fbd3-54bb-4acb-9ffc-3fc61cf8210e" />
 <img width="1874" height="919" alt="image" src="https://github.com/user-attachments/assets/e4b32446-db85-44dd-a9d1-5a53d05a12de" />
 <img width="1332" height="770" alt="image" src="https://github.com/user-attachments/assets/65aec882-8f5b-4665-8ffb-f682a89785e1" />
+<img width="1886" height="905" alt="image" src="https://github.com/user-attachments/assets/8989ccbe-749f-4199-a5ec-187bc8c36d8b" />
+<img width="1482" height="397" alt="image" src="https://github.com/user-attachments/assets/bdee1e51-d31c-4bac-8875-6328b34ba3a0" />
+
+
 
 
 
