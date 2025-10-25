@@ -1,9 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "framework": "vite",
   "rewrites": [
-    { "source": "/((?!assets/|favicon\\.ico|robots\\.txt|manifest\\.webmanifest|.*\\.(css|js|mjs|map|png|jpg|jpeg|gif|svg|ico|json|txt)).*)", "destination": "/" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {
