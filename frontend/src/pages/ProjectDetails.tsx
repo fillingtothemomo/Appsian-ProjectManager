@@ -525,38 +525,14 @@ export default function ProjectDetails() {
               <div className="section-heading">
                 <div>
                   <h2 className="section-title">Recommended order</h2>
-                  <p className="section-subtitle">Executed sequence based on your dependencies.</p>
+                  <p className="section-subtitle">Just the sequence — no times.</p>
                 </div>
               </div>
-              <ol className="timeline-order">
-                {scheduleInfo.recommendedOrder.map((title, idx) => (
-                  <li key={title}>
-                    <span>{idx + 1}</span>
-                    {title}
-                  </li>
+              <ul className="list-disc pl-6 space-y-2">
+                {scheduleInfo.recommendedOrder.map((title) => (
+                  <li key={title}>{title}</li>
                 ))}
-              </ol>
-              <div className="timeline-list">
-                {scheduleInfo.timeline.map((item) => (
-                  <article key={`${item.title}-${item.startOn}`} className="timeline-item">
-                    <div className="timeline-time">
-                      <span>{formatDateTime(item.startOn)}</span>
-                      <span className="timeline-arrow">→</span>
-                      <span>{formatDateTime(item.finishOn)}</span>
-                    </div>
-                    <div className="timeline-body">
-                      <h4 className="timeline-title">{item.title}</h4>
-                      <p className="timeline-meta">
-                        Est. {item.estimatedHours}h
-                        {item.dueDate ? <> • Due {formatDay(item.dueDate)}</> : null}
-                        {item.dependencies.length > 0 ? (
-                          <> • After: {item.dependencies.join(", ")}</>
-                        ) : null}
-                      </p>
-                    </div>
-                  </article>
-                ))}
-              </div>
+              </ul>
             </div>
           )}
         </aside>
