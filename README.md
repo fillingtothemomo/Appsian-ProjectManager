@@ -18,6 +18,7 @@ Users can sign up and log in using their email and password to securely manage t
 - Clean and responsive user interface even for mobiles
 
 ---
+Deployed here:https://appsian-project-manager-five.vercel.app/register
 
 ## Tech Stack
 **Frontend:** React / Next.js  
