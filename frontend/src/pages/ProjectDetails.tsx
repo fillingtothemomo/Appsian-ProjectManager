@@ -528,9 +528,12 @@ export default function ProjectDetails() {
                   <p className="section-subtitle">Just the sequence — no times.</p>
                 </div>
               </div>
-              <ul className="list-disc pl-6 space-y-2">
-                {scheduleInfo.recommendedOrder.map((title) => (
-                  <li key={title}>{title}</li>
+              <ul className="recommended-list">
+                {scheduleInfo.recommendedOrder.map((title, idx) => (
+                  <li key={title} className="recommended-list__item">
+                    <span className="recommended-list__index">{idx + 1}</span>
+                    <span className="recommended-list__title">{title}</span>
+                  </li>
                 ))}
               </ul>
             </div>
