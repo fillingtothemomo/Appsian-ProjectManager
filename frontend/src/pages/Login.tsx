@@ -10,7 +10,6 @@ type AuthResponse = {
 };
 
 export default function Login() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
@@ -20,16 +19,14 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormError(null);
-    const trimmedName = name.trim();
     const trimmedEmail = email.trim();
-    if (!trimmedName || !trimmedEmail || !password) {
+    if (!trimmedEmail || !password) {
       setFormError("Fill all fields");
       return;
     }
     setLoading(true);
     try {
       const res = await api.post<AuthResponse>("/auth/login", {
-        name: trimmedName,
         email: trimmedEmail,
         password,
       });
@@ -52,7 +49,6 @@ export default function Login() {
         <p className="auth-subtitle">Sign in to keep your work moving.</p>
 
         <form onSubmit={handleSubmit} className="auth-form">
-          <FormInput label="Your name" value={name} onChange={setName} placeholder="Lady Ada Lovelace" />
           <FormInput label="Email" value={email} onChange={setEmail} type="email" placeholder="you@example.com" />
           <FormInput label="Password" value={password} onChange={setPassword} type="password" />
           {formError && <div className="form-alert form-alert--inline">{formError}</div>}

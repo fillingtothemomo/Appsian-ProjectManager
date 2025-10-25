@@ -55,14 +55,8 @@ namespace ProjectManager.Api.Services
         public async Task<AuthResultDto> Login(LoginDto dto)
         {
             var email = dto.Email.Trim().ToLowerInvariant();
-            var name = dto.Name.Trim();
             var user = await _db.Users.SingleOrDefaultAsync(u => u.Email == email);
             if (user == null) throw new Exception("Invalid credentials");
-
-            if (!string.Equals(user.DisplayName, name, StringComparison.OrdinalIgnoreCase))
-            {
-                throw new Exception("Invalid credentials");
-            }
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
             var computed = hmac.ComputeHash(Encoding.UTF8.GetBytes(dto.Password));
