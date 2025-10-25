@@ -525,7 +525,6 @@ export default function ProjectDetails() {
               <div className="section-heading">
                 <div>
                   <h2 className="section-title">Recommended order</h2>
-                  <p className="section-subtitle">Just the sequence — no times.</p>
                 </div>
               </div>
               <ul className="recommended-list">
