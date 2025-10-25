@@ -119,4 +119,10 @@ app.MapControllers().RequireCors("DevFrontend");
 app.MapMethods("{*path}", new[] { "OPTIONS" }, () => Results.Ok())
     .RequireCors("DevFrontend");
 
+// Lightweight health endpoints (useful for Render/uptime checks)
+app.MapGet("/healthz", () => Results.Text("OK"))
+    .ExcludeFromDescription();
+app.MapGet("/", () => Results.Text("Project Manager API online"))
+    .ExcludeFromDescription();
+
 app.Run();
