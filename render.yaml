@@ -14,8 +14,4 @@ services:
       - key: Jwt__Key
         generateValue: true
       - key: ConnectionStrings__DefaultConnection
-        value: Data Source=/data/app.db
-    disk:
-      name: data
-      mountPath: /data
-      sizeGB: 1
+        value: Data Source=app.db
