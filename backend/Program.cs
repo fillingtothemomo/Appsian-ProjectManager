@@ -9,23 +9,48 @@ using System.Linq;
 var builder = WebApplication.CreateBuilder(args);
 
 // ----- CORS -----
-var frontendOrigin = builder.Configuration["FrontendOrigin"] ?? "http://localhost:5173";
+static string NormalizeOrigin(string? origin)
+{
+    if (string.IsNullOrWhiteSpace(origin)) return string.Empty;
+    origin = origin.Trim().TrimEnd('/');
+    try
+    {
+        var uri = new Uri(origin);
+        // Only scheme + host + optional port
+        var normalized = $"{uri.Scheme}://{uri.Host}";
+        if (!uri.IsDefaultPort) normalized += $":{uri.Port}";
+        return normalized;
+    }
+    catch
+    {
+        return origin;
+    }
+}
+
+var frontendOriginRaw = builder.Configuration["FrontendOrigin"] ?? "http://localhost:5173";
+var frontendOrigin = NormalizeOrigin(frontendOriginRaw);
+
 var allowedOrigins = new[]
 {
     frontendOrigin,
-    "http://localhost:5173",
-    "https://localhost:5173",
-    "http://127.0.0.1:5173",
-    "https://127.0.0.1:5173"
-}.Where(o => !string.IsNullOrWhiteSpace(o)).Distinct().ToArray();
+    NormalizeOrigin("http://localhost:5173"),
+    NormalizeOrigin("https://localhost:5173"),
+    NormalizeOrigin("http://127.0.0.1:5173"),
+    NormalizeOrigin("https://127.0.0.1:5173")
+}.Where(o => !string.IsNullOrWhiteSpace(o))
+ .Distinct(StringComparer.OrdinalIgnoreCase)
+ .ToArray();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevFrontend", policy =>
     {
-        policy.WithOrigins(allowedOrigins)   // allow only explicit dev URLs
+        // Be robust to trailing slashes or minor variations
+        policy.SetIsOriginAllowed(origin =>
+              allowedOrigins.Contains(NormalizeOrigin(origin), StringComparer.OrdinalIgnoreCase))
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials();            // remove if not using cookies/credentials
+              .AllowCredentials(); // remove if not using cookies/credentials
     });
 });
 
@@ -89,5 +114,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers().RequireCors("DevFrontend");
+
+// Ensure preflight (OPTIONS) always succeeds for CORS-allowed origins
+app.MapMethods("{*path}", new[] { "OPTIONS" }, () => Results.Ok())
+    .RequireCors("DevFrontend");
 
 app.Run();
